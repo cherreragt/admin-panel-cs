@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@700&family=Roboto&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.login {
+  background: #ededed;
+  background-image: url('https://i.pinimg.com/originals/cf/71/99/cf7199b70ef2e9b9b3911b38b44d8e0a.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  height: 100vh;
+  width: 100vw;
+
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Mukta', sans-serif;
+  position: relative;
+  &::before{ 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    content: '';
+  }
+  
+  .form-container {
+    background: rgba(255, 255, 255, 1);
+    height: 70%;
+    width: 70%;
+    position: relative;
+    z-index: 99;
+    box-sizing: border-box;
+    border: 0;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    display: flex;
+
+    .img-form {
+      height: 100%;
+      width: 40%;
+      background-image: url('https://pm1.narvii.com/6804/b902c3e77b24806e6ff0c7d3ebdb1df92a2ed3f4v2_hq.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      position: relative;
+
+      &::before{ 
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        content: '';
+      }
+    }
+  
+
+    form {
+      height: 100%;
+      width: 60%;
+      border-radius: 5px;
+      padding: 20px;
+      .title-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        justify-self: center;
+        justify-items: center;
+        input[type=text], select {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        
+        input[type=submit] {
+          width: 100%;
+          background-color: #4CAF50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        input[type=submit]:hover {
+          background-color: #45a049;
+        }
+      }
+      
+    }
+  }
+
+}
+
