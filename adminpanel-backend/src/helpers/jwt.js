@@ -10,7 +10,7 @@ module.exports = (uid) =>{
     };
     
     jwt.sign(payload, process.env.JWTSECRET, {
-      expiresIn: '12h'
+      expiresIn: '24h'
     }, (err, token)=>{
       if(err){
           reject(err);

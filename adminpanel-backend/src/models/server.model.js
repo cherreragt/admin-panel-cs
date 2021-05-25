@@ -16,6 +16,12 @@ class ModelServers extends Connection {
         autoIncrement: true,
         required: true
       },
+      fk_user: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: false,
+        required: true
+      },
       nameServer: {
         type: Sequelize.STRING,
         allowNull: false,
