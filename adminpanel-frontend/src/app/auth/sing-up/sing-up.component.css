@@ -1,0 +1,16 @@
+.sign-up__body{
+  width: 100%;
+  min-height: 100vh;
+  background-image: url('../../../assets/img/login-bg.jpg');
+  background-size: cover;
+  font-family: 'poppins', sans-serif;
+}
+
+.sign-up__logo{
+  width: 60px;
+}
+
+.form__group{
+  display: flex;
+  flex-direction: column;
+}
