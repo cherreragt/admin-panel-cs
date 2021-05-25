@@ -15,7 +15,7 @@ module.exports = {
         const result = await model.findAll();
         return responses(res, 200, result, false);
       } catch (error) {
-        return responses(res, 500, error, false);
+        return responses(res, 500, error, true);
       }
     },
     cback_createUser: async(req, res)=>{
@@ -37,7 +37,7 @@ module.exports = {
         const token = await jwt(info.id);
         return responses(res, 200, {info, token}, false);
       } catch (error) {
-        return responses(res, 500, error, false);
+        return responses(res, 500, error, true);
       }
     },
     cback_updateUser: async(req, res)=>{
@@ -61,7 +61,7 @@ module.exports = {
 
         return responses(res, 200, result, false);
       } catch (error) {
-        return responses(res, 500, error, false);
+        return responses(res, 500, error, true);
       }
     },
     cback_deleteUser: async(req, res)=>{
@@ -80,7 +80,7 @@ module.exports = {
 
         return responses(res, 200, result, false);
       } catch (error) {
-        return responses(res, 500, error, false);
+        return responses(res, 500, error, true);
       }
     }
 };

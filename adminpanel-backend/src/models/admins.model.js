@@ -50,7 +50,12 @@ class ModelAdmin extends Connection {
         type: Sequelize.STRING,
         allowNull: false,
         unique: false
-      }
+      },
+      vencimiento: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        unique: false
+      },
     }, {
       paranoid: true,
       underscored: true,
