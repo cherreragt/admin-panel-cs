@@ -22,6 +22,6 @@ module.exports = async (req, res, next) => {
     next();
 
   } catch (error) {
-    return responses(res, 500, `Error en el servidor`, true);
+    return responses(res, 500, error, true);
   }
 }

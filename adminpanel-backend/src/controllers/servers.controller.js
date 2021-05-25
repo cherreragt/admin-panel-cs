@@ -19,7 +19,10 @@ module.exports = {
         return responses(res, 400, `Ya existe este server crack.`, true);
       }
 
-      const result = await model.create(req.body);
+      const result = await model.create({
+        fk_user: req.uid,
+        ...req.body
+      });
       return responses(res, 200, result, false);
     } catch (error) {
       return responses(res, 500, error, true);
@@ -38,7 +41,7 @@ module.exports = {
       const result = await model.findOne({
         where:{
           ipServer: req.query.ipServer,
-          fk_user: req.query.fk_user
+          fk_user: req.uid
         }
       });
 
@@ -52,12 +55,14 @@ module.exports = {
       const [ register, exists ] = await Promise.all([
         model.findOne({
           where:{
-            ipServer: req.body.ipServer
+            ipServer: req.body.ipServer,
+            fk_user: req.uid,
           }
         }),
         model.findOne({
           where:{
-            id: req.query.id
+            id: req.query.id,
+            fk_user: req.uid
           }
         })
       ]);
@@ -70,10 +75,7 @@ module.exports = {
         return responses(res, 400, `Ya esta registrado este server crack.`, true);
       }
 
-      const result = await model.update({
-        nameServer: req.body.nameServer,
-        ipServer: req.body.ipServer,
-      }, {
+      const result = await model.update(req.body, {
         where:{
           id: req.query.id
         }
@@ -99,7 +101,8 @@ module.exports = {
 
       const result = await model.destroy({
         where:{
-          id: req.query.id
+          id: req.query.id,
+          fk_user: req.uid,
         }
       });
       return responses(res, 200, result, false);

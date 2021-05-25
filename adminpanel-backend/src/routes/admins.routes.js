@@ -11,7 +11,6 @@ const userole = require('../middlewares/check-user');
 
 const schema = {
   post: Joi.object({
-    fk_UserId: Joi.number().min(1).not().empty().required(),
     fk_ServerId: Joi.number().min(1).not().empty().required(),
     authid: Joi.string().min(3).not().empty().required(),
     password:  Joi.string().min(8).not().empty().required(),
@@ -20,11 +19,9 @@ const schema = {
     vencimiento: Joi.date().not().empty().required(),
   }),
   get: Joi.object({
-    fk_UserId: Joi.number().min(1).not().empty().required(),
     fk_ServerId: Joi.number().min(1).not().empty().required(),
   }),
   getAdmin: Joi.object({
-    fk_UserId: Joi.number().min(1).not().empty().required(),
     authid: Joi.string().min(3).not().empty().required(),
     fk_ServerId: Joi.number().min(1).not().empty().required(),
   }),
@@ -36,13 +33,14 @@ module.exports = () => {
       JoiValidate(schema.post, 'body')
     ], postAdmin
   );
-  //localhost:3030/admins/fk_UserId=1
+
   router.get('/admins/', [
       jwt_validator,
+      userole,
       JoiValidate(schema.get, 'query')
     ], getAdmins
   )
-  //localhost:3030/admins/server?fk_UserId=1&authid=STEAM_0:1:161494124&fk_ServerId=1
+  
   router.get('/admins/server', [
     jwt_validator,
     JoiValidate(schema.getAdmin, 'query')

@@ -18,10 +18,13 @@ const postAdmin = async (req, res) => {
         return responses(res, 400, `El usuario ya existe`, true);
       }
 
-      const result = await model.create(req.body);
+      const result = await model.create({
+        fk_UserId: req.uid,
+        ...req.body,
+      });
       return responses(res, 200, result, false);
     } catch (error) {
-      return responses(res, 500, `Error en el servidor`, true);
+      return responses(res, 500, error, true);
     }
 };
 
@@ -29,13 +32,13 @@ const getAdmins = async (req, res) => {
   try {
     const result = await model.findAll({
       where: {
-        fk_UserId: req.query.fk_UserId,
+        fk_UserId: req.uid,
         fk_ServerId: req.query.fk_ServerId,
       }
     });
     return responses(res, 200, result, false);
   } catch (error) {
-    return responses(res, 500, `Error en el servidor`, true);
+    return responses(res, 500, error, true);
   }
 };
 
@@ -43,9 +46,8 @@ const getAdminsByAuthId = async (req, res) => {
   try {
     const result = await model.findAll({
       where: {
-        fk_UserId: req.query.fk_UserId,
-        authid: req.query.authid,
-        fk_ServerId: req.query.fk_ServerId,
+        fk_UserId: req.uid,
+        ...req.query,
         vencimiento: {
           $gte: new Date()
         }
@@ -53,7 +55,7 @@ const getAdminsByAuthId = async (req, res) => {
     });
     return responses(res, 200, result, false);
   } catch (error) {
-    return responses(res, 500, `Error en el servidor`, true);
+    return responses(res, 500, error, true);
   }
 };
 

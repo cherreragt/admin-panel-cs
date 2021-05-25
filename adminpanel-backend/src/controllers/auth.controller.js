@@ -26,7 +26,7 @@ module.exports = {
 
       const token = await jwt(result.id);
 
-      return responses(res, 200, {token, id:result.id/*, menu:menu(result.role)*/}, false);
+      return responses(res, 200, {token/*, menu:menu(result.role)*/}, false);
     } catch (error) {
       return responses(res, 500, `Error en el servidor`, true);
     }

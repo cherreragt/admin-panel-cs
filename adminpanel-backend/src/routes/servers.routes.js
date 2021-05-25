@@ -10,13 +10,11 @@ const checkUser = require('../middlewares/check-user');
 
 const validations = {
   postServer: Joi.object({
-    fk_user: Joi.number().min(1).not().empty().required(),
     nameServer: Joi.string().min(5).not().empty().required(),
     ipServer: Joi.string().min(8).not().empty().required(),
   }),
   getServerByIp: Joi.object({
     ipServer: Joi.string().min(8).not().empty().required(),
-    fk_user: Joi.number().min(1).not().empty().required(),
   }),
   putServer: Joi.object({
     nameServer: Joi.string().min(5).not().empty().required(),
@@ -48,15 +46,15 @@ module.exports = () => {
   );
 
   router.put('/servers/', [
-      validarJWT,//validar que updatee un server del fk_user
+      validarJWT,
       JoiValidate(validations.ById, 'query'),
       JoiValidate(validations.putServer, 'body')
     ], putServer
   );
 
   router.delete('/servers/', [
-      checkUser,
       validarJWT,
+      checkUser,
       JoiValidate(validations.ById, 'query')
     ],  deleteServer
   );
