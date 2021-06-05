@@ -6,7 +6,7 @@
 
   <div class="sign-up__card bg-gray-50 shadow-md p-10 mx-auto my-16 lg:mb-0 md:w-3/4 lg:w-2/6">
     <h3 class="login__title text-center text-2xl font-bold">Crear usuario</h3>
-    <form [formGroup]="signUpForm" (submit)="createUser()" class="login__form">
+    <form [formGroup]="signUpForm" (submit)="register()" class="login__form">
 
       <div class="form__group mt-5">
         <label class="text-gray-600 text-sm">User:</label>
@@ -28,14 +28,14 @@
         <label class="text-gray-600 text-sm">Password:</label>
         <div class="input__group flex">
           <span class="border-2 border-r-0 cursor-pointer border-gray-300 bg-gray-300 font-medium rounded-l mt-1 p-2 focus:outline-none focus:border-yellow-500"
-                [ngClass]="{'border-red-300': invalidPass, 'border-green-300': validPass}"
+                [ngClass]="{'border-red-300': invalidPass, 'border-green-300': validPassword}"
                 (click)="isTypePass = !isTypePass">
             <i *ngIf="isTypePass == true" class="fa fa-eye"></i>
             <i *ngIf="isTypePass == false" class="fa fa-eye-slash"></i>
           </span>
           <input class="border-2 border-gray-300 rounded-r font-medium text-gray-600 w-full mt-1 p-2 focus:outline-none focus:border-yellow-500"
-                 [ngClass]="{'border-red-300': invalidPass, 'border-green-300': validPass}"
-                 formControlName="pass"  
+                 [ngClass]="{'border-red-300': invalidPass, 'border-green-300': validPassword}"
+                 formControlName="password"  
                  placeholder="Password"
                  [type]="isTypePass ? 'password' : 'text'">
         </div>

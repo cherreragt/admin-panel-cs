@@ -36,7 +36,6 @@ module.exports = () => {
 
   router.get('/admins/', [
       jwt_validator,
-      userole,
       JoiValidate(schema.get, 'query')
     ], getAdmins
   )

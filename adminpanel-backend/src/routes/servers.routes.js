@@ -34,8 +34,7 @@ module.exports = () => {
   );
 
   router.get('/servers/', [ 
-      validarJWT, 
-      checkUser 
+      validarJWT,
     ], getServers
   );
 

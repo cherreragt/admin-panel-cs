@@ -1,0 +1,73 @@
+.table-container { 
+  background-color: #3C3F48;
+  padding: 20px;
+}
+.table-container > h1 {
+  font-size: 1.3em;
+}
+.table-container > button {
+  float: right;
+  height: 40px;
+  line-height: 40px;
+  width: 100px;
+  display: block;
+  color: #f3f3f3;
+  margin-bottom: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid rgb(35,38,45);
+}
+table tr:nth-child(2n) {
+  background-color: rgb(35,38,45);
+  overflow-x: scroll;
+}
+
+table th {
+  color: #f3f3f3;
+  font-size: 1em;
+  text-align: start;
+  height: 50px;
+  width: auto;
+  padding: 10px;
+}
+
+table td {
+  color: #f3f3f3;
+  font-size: 1em;
+  text-align: start;
+  height: 50px;
+  width: auto;
+  padding: 10px;
+}
+
+table .text-center {
+  text-align: center;
+}
+
+.modal {
+  display: none;
+}
+.modal-show {
+  display: block;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+@media screen and (max-width:680px) {
+  
+  .table-container > button {
+    width: 100%;
+  }
+}
+

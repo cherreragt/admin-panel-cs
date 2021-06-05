@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-sing-up',
@@ -11,10 +13,14 @@ export class SingUpComponent implements OnInit {
   signUpForm:FormGroup;
   isTypePass:boolean = true;
 
-  constructor(private fb:FormBuilder) { 
+  constructor(
+    private fb:FormBuilder,
+    private userService:AuthService,
+    private router:Router
+    ) { 
     this.signUpForm = fb.group({
       user: ['', [ Validators.required, Validators.minLength(3) ]],
-      pass: ['', [ Validators.required, Validators.minLength(6) ]]
+      password: ['', [ Validators.required, Validators.minLength(6) ]]
     });
   }
   
@@ -22,17 +28,21 @@ export class SingUpComponent implements OnInit {
   }
 
   get invalidUser(){ return this.signUpForm.controls.user.invalid && this.signUpForm.controls.user.touched }
-  get invalidPass(){ return this.signUpForm.controls.pass.invalid && this.signUpForm.controls.pass.touched }
-  get invalidForm(){ return this.signUpForm.invalid && this.signUpForm.controls.user.touched && this.signUpForm.controls.pass.touched }
+  get invalidPass(){ return this.signUpForm.controls.password.invalid && this.signUpForm.controls.password.touched }
+  get invalidForm(){ return this.signUpForm.invalid && this.signUpForm.controls.user.touched && this.signUpForm.controls.password.touched }
   
   get validUser(){ return this.signUpForm.controls.user.valid && this.signUpForm.controls.user.touched }
-  get validPass(){ return this.signUpForm.controls.pass.valid && this.signUpForm.controls.pass.touched }
+  get validPassword(){ return this.signUpForm.controls.password.valid && this.signUpForm.controls.password.touched }
   
-  createUser(){
+  register(){
     this.signUpForm.markAllAsTouched();
     if(this.signUpForm.invalid){ return; }
 
-    console.log(this.signUpForm.value);
+  const register = this.userService.createUser(this.signUpForm.value).subscribe((responses:any) =>{
+      console.log(responses);
+      this.router.navigateByUrl(`/dashboard`);
+      register.unsubscribe();
+    });
   }
 
 

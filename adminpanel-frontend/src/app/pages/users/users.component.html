@@ -1,0 +1,118 @@
+<div *ngIf="users.length === 0" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
+  <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+  <h2 class="text-center text-white text-xl font-semibold">Loading...</h2>
+  <p class="w-1/3 text-center text-white">Se esta cargando la data, espera unos momentos.</p>
+</div>
+
+
+
+<div *ngIf="users.length > 0"class="table-container">
+  <h1>Users Registered </h1> 
+  <button (click)="showModal()" class="bg-blue-600 shadow-md"><i class="fa fa-plus"></i> Create</button>
+  <div style="overflow-x: auto; width:100%">
+    <table class="shadow-md">
+      <tr>
+        <th>User</th>
+        <th>Role</th>
+        <th class="text-center">Update</th>
+        <th class="text-center">Delete</th>
+      </tr>
+      <tr *ngFor="let user of users | slice:startPag:endPag">
+        <td>{{ user.user }}</td>
+        <td>{{ user.role | usersP }}</td>
+        <td class="text-center"><i  class="fa fa-edit text-blue-400"></i></td>
+        <td (click)="deleteUser(user.id)" class="text-center"><i class="fa fa-trash text-red-400"></i></td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="px-4 py-3 flex items-center justify-between sm:px-6">
+    <div class="flex-1 flex justify-between sm:hidden">
+      <a style="cursor: pointer;" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-white-700">
+        Previous
+      </a>
+      <a style="cursor: pointer;" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-white-700">
+        Next
+      </a>
+    </div>
+    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+      <div>
+        <p class="text-sm text-white-700">
+          Showing
+          <span class="font-medium">{{ startPag > 5 ? startPag : startPag+1 }}</span>
+          to
+          <span class="font-medium">{{ users.length < endPag ? users.length : endPag }}</span>
+          of
+          <span class="font-medium">{{ users.length }}</span>
+          results
+        </p>
+      </div>
+      <div>
+        <nav class="relative z-0 inline-flex -space-x-px" aria-label="Pagination">
+          <a (click)="previousPag()" style="cursor: pointer;" class="relative inline-flex items-center px-2 border border-gray-300 text-sm font-medium text-white-700">
+            <span class="sr-only">Previous</span>
+            <!-- Heroicon name: solid/chevron-left -->
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          
+          <a style="cursor: pointer;" class="border-gray-300 text-white-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+            ...
+          </a>
+          
+          <a (click)="nextPag()" style="cursor: pointer;" class="relative inline-flex items-center px-2 border border-gray-300 text-sm font-medium text-white-700">
+            <span class="sr-only">Next</span>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fixed z-8 inset-0 overflow-y-auto" [ngClass] = "{ 'modal-show' : this.modal }" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+  
+    <div class="inline-block align-bottom bg-black-200 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-1 w-1 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+          
+          <i class="h-4 w-4 text-blue-600 fa fa-registered">
+          </i>
+          </div> 
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+              Register User
+            </h3>
+            <form [formGroup]="FormUser" class="mt-2">
+              
+              <input formControlName="user" type="text" class="text-sm text-gray-500" placeholder="Username">
+              <input formControlName="password" type="password" class="text-sm text-gray-500" placeholder="Password">
+              <select formControlName="role" name="role" id="role">
+                <option value="USER_ROLE">USER</option>
+                <option value="ADMIN_ROLE">ADMIN</option>
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button type="button" (click)="createUser()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-400 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+          Add User
+        </button>
+        <button type="button" (click)="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,28 +11,40 @@
     <div class="navright">
      <!--  <div class="img-profile"><img src="../../assets/img/login-bg.jpg" alt=""></div> -->
       <h2>
-        <a href="#">Christopher Herrera</a>
+        <a style="cursor:pointer;"> {{ user?.user }}</a>
       </h2>
     </div>
   </div>
   <!--navbar-->
 
   <!--sidebar-->
-  <div class="sidebar">
+  <div class="sidebar" [ngClass]="{'w-100': active}" id="sidebar">
     <h5>main</h5>
     <ul>
-      <li><a href="">Opcion1</a></li>
-      <li><a href="">Opcion2</a></li>
-      <li><a href="">Opcion3</a></li>
-      <li><a href="">Opcion4</a></li>
+      <li><a routerLink="/dashboard/"><i class="fa fa-home"></i> Home</a></li>
+      <li><a routerLink="/dashboard/servers"><i class="fa fa-hdd-o"></i> Servers</a></li>
+      <li><a routerLink="/dashboard/admins"><i class="fa fa-legal"></i> Admins</a></li>
+      <li *ngIf="user?.role == 'ADMIN_ROLE'"><a routerLink="/dashboard/users"><i class="fa fa-group"></i> Users</a></li>
+      <li><a href="https://github.com/Chris4589" target="_blank"><i class="fa fa-github"></i> Contact</a></li>
+      <li><a href="https://github.com/Chris4589/panel_grip/blob/master/adm.sma" target="_blank"><i class="fa fa-cloud-download"></i> Plugin</a></li>
+      <li (click)="logOut()" class="signoff"><a><i class="fa fa-sign-out"></i> Sign off</a></li>
     </ul>
+    
   </div>
   <!--sidebar-->
 
   <!--wrapper-->
   <div class="wrapper">
-    <h1 class="title">dashboard</h1>
-      
+    <div class="btn-menu">
+      <i (click)="this.active = !this.active;" class="fa fa-align-justify"></i>
+    </div>
+    <h1 class="title">
+      dashboard
+      <i class="fa fa-angle-right"></i>
+      {{ this.title }}
+    </h1>
+    
+    <router-outlet></router-outlet>
   </div>
   <!--wrapper-->
 

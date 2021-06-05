@@ -1,0 +1,1 @@
+body::-webkit-scrollbar{background:#1f2937;width:14px}body::-webkit-scrollbar-thumb{background:#374455;border-radius:7px}.loader{animation:spinner 1.5s linear infinite;border-top-color:#3498db}@keyframes spinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}

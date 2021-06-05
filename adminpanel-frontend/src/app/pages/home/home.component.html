@@ -1,0 +1,25 @@
+<div class="data-contain">
+  <div class="stadistics">
+    <i class="fa fa-hdd-o"></i> Servers {{ servers.length }}
+  </div>
+  <div class="stadistics">
+    <i class="fa fa-line-chart"></i> Active admins 0
+  </div>
+  <div class="stadistics">
+    <i class="fa fa-pie-chart"></i> admins expired 0
+  </div>
+</div>
+
+<div class="card-body">
+  <h3>Statistics</h3>
+  <div style="display: block">
+      <canvas baseChart
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [legend]="true"
+        [colors]="colors"
+        [chartType]="doughnutChartType">
+      </canvas>
+  </div>
+</div>
+

@@ -43,7 +43,7 @@ class ModelAdmin extends Connection {
       role: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'ADMIN',
+        defaultValue: 'USER_ROLE',
         unique: false
       },
       flags: {
