@@ -19,8 +19,8 @@ module.exports = () => {
     [
       JoiValidate(
         Joi.object({
-          user:Joi.string().required().not().empty(),
-          password:Joi.string().required().not().empty()
+          user:Joi.string().min(3).required().not().empty(),
+          password:Joi.string().min(3).required().not().empty()
         }),
         'body'
       )

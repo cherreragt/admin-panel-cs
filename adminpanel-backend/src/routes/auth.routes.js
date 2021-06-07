@@ -11,8 +11,8 @@ module.exports = () => {
   router.post('/login/', 
     JoiValidate(
       Joi.object({
-        user: Joi.string().min(5).required().not().empty(),
-        password: Joi.string().min(8).required().not().empty()
+        user: Joi.string().min(3).required().not().empty(),
+        password: Joi.string().min(3).required().not().empty()
       }), 'body'), 
     login
   );

@@ -8,7 +8,11 @@ const JoiValidate = (schema, property) => {
       const { details } = error;
       const message = details.map(i => i.message).join(',');
 
-      return res.status(422).json({ error: message });
+      //return res.status(422).json({ error: message });
+      return res.status(422).json({
+        error,
+        msg:message
+      });
     }
     next();
   };

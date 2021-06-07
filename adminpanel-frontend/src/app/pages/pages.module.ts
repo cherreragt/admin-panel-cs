@@ -9,6 +9,7 @@ import { UsersComponent } from './users/users.component';
 import { ChartsModule } from 'ng2-charts';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsersPPipe } from '../pipes/users-p.pipe';
+import { IsUserSteamPipe } from '../pipes/is-user-steam.pipe';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { UsersPPipe } from '../pipes/users-p.pipe';
     ServersComponent, 
     AdminsComponent, 
     UsersComponent,
-    UsersPPipe
+    UsersPPipe,
+    IsUserSteamPipe,
   ],
   imports: [
     CommonModule,

@@ -4,6 +4,8 @@ import { delay, tap } from 'rxjs/operators';
 import { ServerInterface, ServerModel } from 'src/app/models/server.model';
 import { ServerService } from 'src/app/services/server.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-servers',
   templateUrl: './servers.component.html',
@@ -52,6 +54,7 @@ export class ServersComponent implements OnInit {
       this.cargando = false;
     }, (err) => {
       console.log(err);
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     });
   }
   
@@ -60,6 +63,7 @@ export class ServersComponent implements OnInit {
       this.loadServers();
     }, (err) => {
       console.log(err);
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     });
   }
   updateCurrentServer() {
@@ -74,6 +78,7 @@ export class ServersComponent implements OnInit {
       this.loadServers();
     }, (err) => {
       console.log(err);
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     });
   }
 
@@ -95,6 +100,7 @@ export class ServersComponent implements OnInit {
       this.loadServers();
     }, (err) => {
       console.log(err);
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     });
     
   }

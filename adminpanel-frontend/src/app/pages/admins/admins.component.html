@@ -9,34 +9,34 @@
   <h1>Admins Registered </h1> 
   
   <button *ngIf="servers.length > 0" (click)="showModal()" class="bg-blue-600 shadow-md"><i class="fa fa-plus"></i> Create</button>
-  <select *ngIf="servers.length > 0" class="bg-transparent" (change)="changeServer($event)">
+  <select (change)="changeServerId($event)" *ngIf="servers.length > 0" class="bg-transparent" (change)="changeServer($event)">
     <option  *ngFor="let item of servers" [value]="item.id">{{ item.nameServer }}</option>
   </select>
   <div style="overflow-x: auto; width:100%">
     <table class="shadow-md">
       <tr>
-        <th>Authid</th>
+        <th>Name</th>
+        <th>Steam</th>
         <th>Role</th>
         <th>Vencimiento</th>
-        <th class="text-center">Update</th>
-        <th class="text-center">Delete</th>
+        <th class="text-center">Options</th>
       </tr>
       <tr *ngFor="let item of admins">
-        <td>{{ item.authid }}</td>
+        <td>{{ item.playername }}</td>
+        <td>{{ item.steam | isUserSteam }}</td>
         <td>{{ item.role }}</td>
         <td>{{ item.vencimiento | date }}</td>
-        <td class="text-center"><i  class="fa fa-edit text-blue-400"></i></td>
-        <td class="text-center"><i class="fa fa-trash text-red-400"></i></td>
+        <td class="text-center"><i (click)="update(item)" style="cursor: pointer;" class="fa fa-edit text-blue-400"></i> - <i (click)="deleteCurrentAdmin(item.id)" style="cursor: pointer;" class="fa fa-trash text-red-400"></i></td>
       </tr>
     </table>
   </div>
   
   <div class="px-4 py-3 flex items-center justify-between sm:px-6">
     <div class="flex-1 flex justify-between sm:hidden">
-      <a style="cursor: pointer;" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-white-700">
+      <a (click)="previousPag()" style="cursor: pointer;" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-white-700">
         Previous
       </a>
-      <a style="cursor: pointer;" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-white-700">
+      <a (click)="nextPag()" style="cursor: pointer;" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-white-700">
         Next
       </a>
     </div>
@@ -97,25 +97,35 @@
           </div> 
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-              Register Admin
+              {{ edit ? "Edit" : "Register" }} Admin
             </h3>
             <form [formGroup]="FormAdmin" class="mt-2">
               
               <input formControlName="authid" type="text" class="text-sm text-gray-500" placeholder="Authid">
+              <input formControlName="playername" type="text" class="text-sm text-gray-500" placeholder="Nick">
               <input formControlName="password" type="text" class="text-sm text-gray-500" placeholder="Password">
               <input formControlName="role" type="text" class="text-sm text-gray-500" placeholder="Role">
               <input formControlName="flags" type="text" class="text-sm text-gray-500" placeholder="Flags">
               <input formControlName="vencimiento" type="date" name="vencimiento" id="vencimiento">
+              Server:
               <select formControlName="fk_ServerId" name="fk_ServerId" id="fk_ServerId">
                 <option *ngFor="let item of servers" [value]="item.id">{{ item.nameServer }}</option>
+              </select>
+              Steam:
+              <select formControlName="steam" name="" id="">
+                <option value="true">YES</option>
+                <option value="false">NO</option>
               </select>
             </form>
           </div>
         </div>
       </div>
       <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-        <button type="button" (click)="addAdmin()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-400 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+        <button *ngIf="!edit" type="button" (click)="addAdmin()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-400 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
           Add Admin
+        </button>
+        <button *ngIf="edit" type="button" (click)="updateCurrentServer()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-400 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+          Update Admin
         </button>
         <button type="button" (click)="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
           Cancel

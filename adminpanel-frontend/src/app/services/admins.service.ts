@@ -32,8 +32,8 @@ export class AdminsService {
     return this.http.delete(`${base_url}/admins/?id=${id}`, this.getHeaders);
   }
 
-  updateAdmin(id:number, admin:AdminInterface) {
-    return this.http.put(`${base_url}/admins/?id=${id}`, admin, this.getHeaders);
+  updateAdmin(id:number, fk_ServerId:number, admin:AdminInterface) {
+    return this.http.put(`${base_url}/admins/?id=${id}&fk_ServerId=${fk_ServerId}`, admin, this.getHeaders);
   }
 
   createAdmin(admin:AdminInterface) {

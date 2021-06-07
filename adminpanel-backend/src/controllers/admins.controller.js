@@ -59,8 +59,76 @@ const getAdminsByAuthId = async (req, res) => {
   }
 };
 
+
+const putAdminById = async (req, res) => {
+  try {
+
+    const [ exists, register ] = await Promise.all([
+      model.findOne({
+        where: {
+          fk_UserId: req.uid,
+          fk_ServerId: req.query.fk_ServerId,
+          id: req.query.id,
+        }
+      }),
+      model.findOne({
+        where: {
+          fk_UserId: req.uid,
+          fk_ServerId: req.query.fk_ServerId,
+          authid: req.body.authid,
+        }
+      }),
+    ]);
+
+    if (!exists) {
+      return responses(res, 400, `User Inexistente`, true);
+    }
+
+    if (register && exists.authid !== req.body.authid) {
+      return responses(res, 400, `Admin ya registrado`, true);
+    }
+
+    const result = await model.update(req.body, {
+      where:{
+        id: req.query.id,
+        fk_UserId: req.uid,
+      }
+    });
+    return responses(res, 200, result, false);
+  } catch (error) {
+    return responses(res, 500, error, true);
+  }
+};
+
+const deleteAdminById = async (req, res) => {
+  try {
+
+    const exists = await model.findOne({
+      where:{
+        id: req.query.id
+      }
+    });
+
+    if (!exists) {
+      return responses(res, 400, `El admin que quieres eliminar no existe.`, true);
+    }
+
+    const result = await model.destroy({
+      where: {
+        id: req.query.id,
+        fk_UserId: req.uid,
+      }
+    });
+    return responses(res, 200, result, false);
+  } catch (error) {
+    return responses(res, 500, error, true);
+  }
+};
+
 module.exports = {
   postAdmin,
   getAdmins,
   getAdminsByAuthId,
+  putAdminById,
+  deleteAdminById,
 }

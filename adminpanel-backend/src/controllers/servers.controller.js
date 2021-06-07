@@ -58,32 +58,36 @@ const getServerByIp = async (req, res) => {
 
 const putServer = async (req, res) => {
   try {
-    const [ register, exists ] = await Promise.all([
-      model.findOne({
-        where:{
-          ipServer: req.body.ipServer,
-          fk_user: req.uid,
-        }
-      }),
+    const [ exists, register ] = await Promise.all([
       model.findOne({
         where:{
           id: req.query.id,
           fk_user: req.uid
         }
-      })
+      }),
+      model.findOne({
+        where:{
+          ipServer: req.body.ipServer,
+        }
+      }),
+      
     ]);
 
     if (!exists) {
       return responses(res, 400, `El server que quieres actualizar no existe`, true);
     }
 
-    if (register && register.id !== req.query.id) {
+    if (register && exists.ipServer !== req.body.ipServer) {
+      console.log(register.ipServer)
+      console.log(exists.ipServer)
+      console.log(req.body.ipServer)
       return responses(res, 400, `Ya esta registrado este server crack. `, true);
     }
 
     const result = await model.update(req.body, {
       where:{
-        id: req.query.id
+        id: req.query.id,
+        fk_user: req.uid,
       }
     });
 

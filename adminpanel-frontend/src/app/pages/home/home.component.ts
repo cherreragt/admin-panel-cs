@@ -4,6 +4,8 @@ import { Color, Label, MultiDataSet } from 'ng2-charts';
 import { AdminsService } from 'src/app/services/admins.service';
 import { ServerService } from 'src/app/services/server.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -29,7 +31,6 @@ export class HomeComponent implements OnInit {
     this.server.getServers().subscribe(({msg}:any) => {
       this.servers = msg;
     });
-    
   }
 
 }

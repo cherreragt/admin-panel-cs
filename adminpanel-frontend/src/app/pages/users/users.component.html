@@ -14,14 +14,12 @@
       <tr>
         <th>User</th>
         <th>Role</th>
-        <th class="text-center">Update</th>
-        <th class="text-center">Delete</th>
+        <th class="text-center">Options</th>
       </tr>
       <tr *ngFor="let user of users | slice:startPag:endPag">
         <td>{{ user.user }}</td>
         <td>{{ user.role | usersP }}</td>
-        <td class="text-center"><i  class="fa fa-edit text-blue-400"></i></td>
-        <td (click)="deleteUser(user.id)" class="text-center"><i class="fa fa-trash text-red-400"></i></td>
+        <td class="text-center"><i  class="fa fa-edit text-blue-400"></i> - <i class="fa fa-trash text-red-400" (click)="deleteUser(user.id)" ></i></td>
       </tr>
     </table>
   </div>

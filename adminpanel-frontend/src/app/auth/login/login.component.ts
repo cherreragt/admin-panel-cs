@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb:FormBuilder, private router:Router, private auth:AuthService) { 
     this.loginForm = fb.group({
       user: ['', [ Validators.required, Validators.minLength(3) ]],
-      password: ['', [ Validators.required, Validators.minLength(6) ]]
+      password: ['', [ Validators.required, Validators.minLength(3) ]]
     });
   }
   
@@ -36,11 +38,13 @@ export class LoginComponent implements OnInit {
 
     
     const log = this.auth.loginUser(this.loginForm.value).subscribe((responses) => {
-      console.log(responses);
-      this.router.navigateByUrl('/dashboard');
-      log.unsubscribe();
+      Swal.fire(':)', `Entraras al panel en segundos..`, 'success');
+      setTimeout(()=>{
+        this.router.navigateByUrl(`/dashboard`);
+        log.unsubscribe();
+      }, 3000);
     }, (err) => {
-      console.log(err)
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     })
     
   }

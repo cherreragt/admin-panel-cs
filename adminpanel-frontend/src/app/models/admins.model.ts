@@ -7,4 +7,6 @@ export interface AdminInterface {
   role:string;
   flags:string;
   vencimiento:Date;
+  playername:string;
+  steam:boolean;
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
+
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -38,6 +41,7 @@ export class UsersComponent implements OnInit {
       console.log('object')
     }, (err) => {
       console.log(err);
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     });
   }
 
@@ -46,6 +50,7 @@ export class UsersComponent implements OnInit {
       this.users = msg;
     }, (err) => {
       console.log(err);
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     })
   }
 
@@ -54,6 +59,7 @@ export class UsersComponent implements OnInit {
       this.loadAllUsers();
     }, (err) => {
       console.log(err);
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     });
   }
 

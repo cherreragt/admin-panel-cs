@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-sing-up',
   templateUrl: './sing-up.component.html',
@@ -20,7 +22,7 @@ export class SingUpComponent implements OnInit {
     ) { 
     this.signUpForm = fb.group({
       user: ['', [ Validators.required, Validators.minLength(3) ]],
-      password: ['', [ Validators.required, Validators.minLength(6) ]]
+      password: ['', [ Validators.required, Validators.minLength(3) ]]
     });
   }
   
@@ -39,9 +41,14 @@ export class SingUpComponent implements OnInit {
     if(this.signUpForm.invalid){ return; }
 
   const register = this.userService.createUser(this.signUpForm.value).subscribe((responses:any) =>{
-      console.log(responses);
-      this.router.navigateByUrl(`/dashboard`);
-      register.unsubscribe();
+      Swal.fire(':)', `Entraras al panel en segundos..`, 'success');
+      setTimeout(()=>{
+        this.router.navigateByUrl(`/dashboard`);
+        register.unsubscribe();
+      }, 3000);
+      
+    }, (err) => {
+      Swal.fire('Ocurrio un error :(', `Error: ${err.error.msg}`, 'error');
     });
   }
 

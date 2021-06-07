@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  url_base: 'http://198.12.74.204:5050'
+  url_base: 'http://localhost:3030'//http://198.12.74.204:5050
 };
-
+//http://localhost:3030
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

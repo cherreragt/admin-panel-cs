@@ -56,6 +56,20 @@ class ModelAdmin extends Connection {
         allowNull: false,
         unique: false
       },
+      playername: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: false,
+        defaultValue: 'Player',
+        required: true
+      },
+      steam: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        unique: false,
+        defaultValue: false,
+        required: true
+      },
     }, {
       paranoid: true,
       underscored: true,
