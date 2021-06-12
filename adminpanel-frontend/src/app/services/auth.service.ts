@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   loginUser(data:AuthService) {
-    return this.http.post(`${baseUrl}/login/`, data).pipe(
+    return this.http.post(`${baseUrl}/auth/`, data).pipe(
       tap((res:any) => {
         localStorage.setItem(`token`, res.msg.token);
       }),
@@ -41,7 +41,7 @@ export class AuthService {
   }
   
   reNewToken() {
-    return this.http.get(`${baseUrl}/login/renew/`, this.getHeaders).pipe(
+    return this.http.get(`${baseUrl}/auth/renew/`, this.getHeaders).pipe(
       map((res:any) => {
         const { msg } = res;
         const { id, user, role } = msg.data;

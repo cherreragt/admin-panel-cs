@@ -4,7 +4,7 @@ const Joi = require('joi');
 const router = Router();
 
 const { JoiValidate } = require('../middlewares/JoiValidate');
-const { postAdmin, getAdmins, getAdminsByAuthId, putAdminById, deleteAdminById } = require('../controllers/admins.controller');
+const { postAdmin, getAdmins, getAdmins2, getAdminsByAuthId, putAdminById, deleteAdminById } = require('../controllers/admins.controller');
 
 const jwt_validator = require('../middlewares/verifity-jwt');
 const userole = require('../middlewares/check-user');
@@ -55,6 +55,12 @@ module.exports = () => {
       JoiValidate(schema.get, 'query')
     ], getAdmins
   )
+
+  router.get('/admins/1', [
+    jwt_validator,
+    JoiValidate(schema.get, 'query')
+  ], getAdmins2
+)
   
   router.get('/admins/server', [
       jwt_validator,

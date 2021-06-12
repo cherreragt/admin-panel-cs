@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url_base: 'http://198.12.74.204:5050'
+  url_base: 'https://admin.svlmexico.com:443'
 };

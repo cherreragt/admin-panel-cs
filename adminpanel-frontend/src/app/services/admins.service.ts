@@ -25,7 +25,7 @@ export class AdminsService {
   }
 
   getAdmin(fk_ServerId:number) {
-    return this.http.get(`${base_url}/admins/?fk_ServerId=${fk_ServerId}`, this.getHeaders);
+    return this.http.get(`${base_url}/admins/1?fk_ServerId=${fk_ServerId}`, this.getHeaders);
   }
 
   deleteAdmin(id:number) {

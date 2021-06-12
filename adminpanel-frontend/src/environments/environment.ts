@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url_base: 'http://localhost:3030'//http://198.12.74.204:5050
+  url_base: 'https://admin.svlmexico.com:443'//http://198.12.74.204:5050
 };
 //http://localhost:3030
 /*

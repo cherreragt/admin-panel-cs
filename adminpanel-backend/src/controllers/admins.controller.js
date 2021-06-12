@@ -34,6 +34,23 @@ const getAdmins = async (req, res) => {
       where: {
         fk_UserId: req.uid,
         fk_ServerId: req.query.fk_ServerId,
+        vencimiento: {
+          $gte: new Date()
+        },
+      }
+    });
+    return responses(res, 200, result, false);
+  } catch (error) {
+    return responses(res, 500, error, true);
+  }
+};
+
+const getAdmins2 = async (req, res) => {
+  try {
+    const result = await model.findAll({
+      where: {
+        fk_UserId: req.uid,
+        fk_ServerId: req.query.fk_ServerId,
       }
     });
     return responses(res, 200, result, false);
@@ -128,6 +145,7 @@ const deleteAdminById = async (req, res) => {
 module.exports = {
   postAdmin,
   getAdmins,
+  getAdmins2,
   getAdminsByAuthId,
   putAdminById,
   deleteAdminById,

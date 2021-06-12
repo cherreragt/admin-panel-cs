@@ -8,7 +8,7 @@ const { JoiValidate } = require('../middlewares/JoiValidate');
 const validarJWT = require('../middlewares/verifity-jwt');
 
 module.exports = () => {
-  router.post('/login/', 
+  router.post('/auth/', 
     JoiValidate(
       Joi.object({
         user: Joi.string().min(3).required().not().empty(),
@@ -17,7 +17,7 @@ module.exports = () => {
     login
   );
 
-  router.get('/login/renew/', 
+  router.get('/auth/renew/', 
     validarJWT, 
     renewToken
   );
