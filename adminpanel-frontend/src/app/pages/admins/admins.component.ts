@@ -39,7 +39,7 @@ export class AdminsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadServers();
+    this.loadServers(); 
   }
   changeServerId(event:any) {
     this.idServer = event.target.value;

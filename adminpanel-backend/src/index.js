@@ -34,11 +34,12 @@ onConnect()
     app.use(express.static(path.join(__dirname, 'public/cs-dashboard')));
     app.use(express.json());
     app.use('/', router);
-
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); 
+    
     app.get('*', (req, res) => { 
       res.sendFile(path.join(__dirname, 'public/cs-dashboard/index.html'));
     });
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); 
+    
     const httpsServer = https.createServer({key, cert}, app);
     httpsServer.listen(port, host, ()=> console.log(`Server https Online port ${host}:${port}`));
 }).catch( (err)=> console.log(err) );

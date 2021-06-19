@@ -35,6 +35,7 @@ class ModelServers extends Connection {
         required: true
       },
     }, {
+      
       paranoid: true,
       underscored: true,
       timestamps: true,

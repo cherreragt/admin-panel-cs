@@ -1,2 +1,4 @@
 /adminpanel-backend/node_modules/
+/adminpanel-backend/src/svlmexico-cert.crt
+/adminpanel-backend/src/svlmexico-key.key
 /adminpanel-frontend/node_modules/

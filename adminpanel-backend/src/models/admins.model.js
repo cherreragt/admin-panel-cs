@@ -71,6 +71,7 @@ class ModelAdmin extends Connection {
         required: true
       },
     }, {
+      
       paranoid: true,
       underscored: true,
       timestamps: true,

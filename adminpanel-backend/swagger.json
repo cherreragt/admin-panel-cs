@@ -1,161 +1,148 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "description": "This is an example of using OAuth2 Access Code Flow in a specification to describe security to your API.",
-      "version": "1.0.0",
-      "title": "Sample Access Code Flow OAuth2 Project"
-    },
-    "schemes": [
-      "http"
-    ],
-    "security": [
-      {
-        "accessCode": [
-          "read",
-          "write"
-        ]
-      }
-    ],
-    "paths": {
-      "/users/": {
-        "get": {
-          "summary": "Borrar filas",
-          "description": "Borrar filas",
-          "parameters": [
-              
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
+	"swagger": "2.0",
+	"info": {
+		"description": "Rutas para consumo de SVL Admin Panel.",
+		"version": "0.1b",
+		"title": "[ API ] SVL Admin Panel"
+	},
+	"schemes": [
+		"https"
+	],
+	"security": [{
+		"accessCode": [
+			"read",
+			"write"
+		]
+	}],
+	"paths": {
+		"/auth/": {
+			"post": {
+				"summary": "Ruta de autentificacion al admin panel.",
+				"description": "Esta operación sirve para tener acceso a las demás rutas protegidas por JWT.",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "datos enviados en el cuerpo.",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Auth"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/auth/renew/": {
+			"get": {
+				"summary": "Ruta de re-autentificacion al admin panel.",
+				"description": "Esta operación sirve para renovar el acceso a rutas protegidas por JWT.",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [{
+					"in": "header",
+					"name": "token",
+					"description": "datos enviados en los headers",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/servers/Ip": {
+			"get": {
+				"summary": "Ruta para obtener el servidor deseado.",
+				"description": "En esta ruta progida por JWT se obtiene el IDServer para buscar admins.",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [{
+						"in": "header",
+						"name": "token",
+						"description": "datos enviados en los headers",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "ipServer",
+						"description": "IP del server EJ: 45.58.56.194:27018",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+    "/admins/":{
+      "get":{
+         "summary":"Ruta para obtener los admins del server.",
+         "description":"Esta operación sirve para obtener los admins del server.",
+         "produces":[
+            "application/json"
+         ],
+         "parameters":[
+          {
+            "in":"header",
+            "name":"token",
+            "description":"datos enviados en los headers",
+            "required":true,
+            "schema":{
+            "type": "string"
             }
+          },
+          {
+             "in":"query",
+             "name":"fk_ServerId",
+             "description":"ID del server EJ: 2",
+             "required":true,
+             "schema":{
+              "type": "integer"
+             }
           }
-        },
-        "post":{
-            "summary": "Server heartbeat operation",
-            "description": "This operation shows how to override the global security defined above, as we want to open it up for all users.",
-            "consumes": [
-                "application/json"
-              ],
-              "produces": [
-                "application/json"
-              ],
-              "parameters": [
-                {
-                    "in": "body",
-                    "name": "body",
-                    "description": "order placed for purchasing the pet",
-                    "required": true,
-                    "schema": {
-                      "$ref": "#/definitions/Users"
-                    }
-                }
-              ],
-            "responses": {
-              "200": {
-                "description": "OK"
-              }
-            },
-            "security": []
-        },
-        "put":{
-            "summary": "Server heartbeat operation",
-            "description": "This operation shows how to override the global security defined above, as we want to open it up for all users.",
-            "consumes": [
-                "application/json"
-              ],
-              "produces": [
-                "application/json"
-              ],
-              "parameters": [
-                {
-                    "in" : "query",
-                    "name" : "id"
-                },
-                {
-                    "in" : "header",
-                    "name" : "token"
-                },
-                {
-                    "in": "body",
-                    "name": "body",
-                    "description": "order placed for purchasing the pet",
-                    "required": true,
-                    "schema": {
-                      "$ref": "#/definitions/Users2"
-                    }
-                }
-              ],
-            "responses": {
-              "200": {
-                "description": "OK"
-              }
-            },
-            "security": []
-        },
-        "delete":{
-            "summary": "Server heartbeat operation",
-            "description": "This operation shows how to override the global security defined above, as we want to open it up for all users.",
-            "consumes": [
-                "application/json"
-              ],
-              "produces": [
-                "application/json"
-              ],
-              "parameters": [
-                {
-                    "in" : "query",
-                    "name" : "id"
-                },
-                {
-                    "in" : "header",
-                    "name" : "token"
-                }
-              ],
-            "responses": {
-              "200": {
-                "description": "OK"
-              }
-            },
-            "security": []
-        }
-      }
-      
-    },
-    "securityDefinitions": {
-      "accessCode": {
-        "type": "oauth2",
-        "authorizationUrl": "http://example.com/oauth/auth",
-        "tokenUrl": "http://example.com/oauth/token",
-        "flow": "accessCode",
-        "scopes": {
-          "write": "allows modifying resources",
-          "read": "allows reading resources"
-        }
-      }
-    },
-    "definitions": {
-        "Users": {
-            "type": "object",
-            "properties": {
-              "user": {
-                "type": "string"
-              },
-              "password": {
-                "type": "string"
-              }
+         ],
+         "responses":{
+            "200":{
+               "description":"OK"
             }
-        },
-
-        "Users2": {
-            "type": "object",
-            "properties": {
-              "user": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            }
-        }
-    }
-  }
+         }
+      }
+   }
+	},
+	"definitions": {
+		"Auth": {
+			"type": "object",
+			"properties": {
+				"user": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
